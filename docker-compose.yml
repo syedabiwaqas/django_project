@@ -1,0 +1,37 @@
+version: '3'
+
+services:
+  db:
+    image: mysql
+    restart: always
+    command: --default-authentication-plugin=mysql_native_password --mysqlx=0
+    environment:
+      - MYSQL_HOST=localhost
+      - MYSQL_PORT=3306  # cannot change this port to other number
+      - MYSQL_DATABASE=cgi_assignments # name you want for the database
+      - MYSQL_USER=root # change to whatever username you want
+      - MYSQL_PASSWORD=root #change to the password you want for user
+      - MYSQL_ROOT_PASSWORD=root #change to good root password
+    ports:
+      - "3300:3306"
+    volumes:
+      - "./db:/var/lib/mysql"
+  
+  web:
+    build: .
+      # command: python manage.py runserver 0.0.0.0:8000
+    command: python manage.py runserver 0.0.0.0:8000
+    container_name: docker_dir
+    volumes:
+      - .:/docker_dir
+    ports:
+      - "8000:8000"
+    depends_on:
+      - db
+    # build: .
+    # command: bash -c "python manage.py makemigrations && python manage.py migrate && python manage.py runserver 0.0.0.0:8000"
+    # container_name: docker_dir
+    # volumes:
+    #   - .:/docker_dir
+    # ports:
+    #   - "8000:8000"
