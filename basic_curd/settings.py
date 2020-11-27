@@ -82,9 +82,10 @@ DATABASES = {
     'default': {
         'NAME': 'cgi_assignments',
         'ENGINE': 'django.db.backends.mysql',
-        'USER': 'root',
-        'PASSWORD': 'root',
-        'HOST': 'localhost'
+        'USER': 'newuser',
+        'PASSWORD': 'password',
+        'HOST': 'db',
+        'PORT': 33060,
     },
 
 }
